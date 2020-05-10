@@ -8,4 +8,7 @@ Requires one non-standard library that can be pip installed by doing:
 
 Otherwise, `junkheapsimulator.py` is designed for doing 1 simulation, while `plotter.py` is used for multiple simulations and plotting.
 
+![junkheapsimulator](https://raw.githubusercontent.com/sk84uhlivin/junkheapsimulator/master/img/junkheapsimulator.png)
+![enter image description here](https://raw.githubusercontent.com/sk84uhlivin/junkheapsimulator/master/img/plotter.png)
+
 > Written with [StackEdit](https://stackedit.io/).
