@@ -84,12 +84,4 @@ while True:
     # Print results.
     print()
     print(f"Average of {average_g:,}G from {y} simulations.")
-
-    # Ask to run again.
-    print()
-    again = input("Do you want to run another simulation? (y/n) ")
-
-    if again.lower() == "y":
-        continue
-    else:
-        break
+    break
