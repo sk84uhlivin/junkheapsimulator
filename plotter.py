@@ -1,3 +1,4 @@
+import numpy as np
 import random
 import plotly.graph_objects as go
 
@@ -8,12 +9,22 @@ damascus = [8]
 amber_v = 3000
 flourite_v = 6000
 damascus_v = 6400
+percentile_list = [10, 20, 30, 40, 50, 60, 70, 80, 90]
 # Globals.
 average_line = []
 results = []
 x_axis = []
 total_g = 0
 y = 0
+
+
+def money_calc(a, f, d):
+    amber_g = a * amber_v
+    flourite_g = f * flourite_v
+    damascus_g = d * damascus_v
+    g = amber_g + flourite_g + damascus_g
+    return (g)
+
 
 while True:
     # User defined simulation count.
@@ -34,7 +45,7 @@ while True:
         x = 0
 
         # Checks 40 boxes.
-        while x < 40:
+        for x in range(1, 41):
             roll = random.randint(0, 99)
             if roll in amber:
                 a += 1
@@ -42,15 +53,14 @@ while True:
                 f += 1
             elif roll in damascus:
                 d += 1
-            x += 1
 
         # Convert drops to money, report results.
-        amber_g = a * amber_v
-        flourite_g = f * flourite_v
-        damascus_g = d * damascus_v
-        g = amber_g + flourite_g + damascus_g
+        g = money_calc(a, f, d)
         total_g = total_g + g
         results.append(g)
+
+    # Calculates percentile marks.
+    sorted_results = np.array(sorted(results))
 
     # Average of simulation, generates line co-ordinates.
     average_g = int(total_g / y)
@@ -68,7 +78,7 @@ while True:
     fig.add_trace(go.Scatter(x=x_axis, y=results, mode='markers', name='G'))
     fig.add_trace(go.Scatter(x=x_axis, y=average_line, mode='lines', name='Average'))
     fig.update_layout(
-        title=f"Junk Heap Drop Simulation - {sims} times          Average: {average_g:,}G",
+        title=f"Junk Heap Drop Simulation - {sims:,} times          Average: {average_g:,}G",
         xaxis_title="Simulation #",
         yaxis_title="G",
         font=dict(
@@ -84,4 +94,8 @@ while True:
     # Print results.
     print()
     print(f"Average of {average_g:,}G from {y} simulations.")
+
+    for percentile in percentile_list:
+        value = np.percentile(sorted_results, percentile)
+        print(f"{percentile}th percentile: {int(value):,}")
     break
